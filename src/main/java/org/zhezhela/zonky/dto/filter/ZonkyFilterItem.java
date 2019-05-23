@@ -2,7 +2,7 @@ package org.zhezhela.zonky.dto.filter;
 
 public class ZonkyFilterItem {
 
-    private final String DELIMITER = "__";
+    private final String DELIMITER = "_";
 
     private ZonkyFieldName fieldName;
     private OperationalSuffix operationalSuffix;
@@ -12,7 +12,7 @@ public class ZonkyFilterItem {
         if (fieldName == null || operationalSuffix == null) {
             return null;
         }
-        return fieldName + DELIMITER + operationalSuffix;
+        return fieldName.getName() + DELIMITER + operationalSuffix.getCode();
     }
 
     public ZonkyFieldName getFieldName() {

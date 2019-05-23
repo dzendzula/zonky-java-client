@@ -30,6 +30,9 @@ public class ZonkyApiServiceImpl implements ZonkyApiService {
     public List<ZonkyLoanDto> getLoans(ZonkyRequestParams params) {
         Map<String, String> headers = prepareHeaders(params);
         ZonkyLoanDto[] zonkyLoanArray = zonkyConnector.sendGetRequest(ZonkyRequest.LOANS_MARKETPLACE, new String[0], null, formMessageParamsList(params), headers, ZonkyLoanDto[].class);
+        if (zonkyLoanArray == null) {
+            return Collections.emptyList();
+        }
         return Arrays.asList(zonkyLoanArray);
     }
 

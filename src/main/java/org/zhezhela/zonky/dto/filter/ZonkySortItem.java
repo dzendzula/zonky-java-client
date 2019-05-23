@@ -3,11 +3,11 @@ package org.zhezhela.zonky.dto.filter;
 public class ZonkySortItem {
 
     private ZonkyFieldName fieldName;
-    private SortDirection direction;
+    private SortDirection direction = SortDirection.ASC;
 
 
     public String formSortParam() {
-        return getDirection().getCode() + getFieldName();
+        return getDirection().getCode() + getFieldName().getName();
     }
 
     public enum SortDirection {

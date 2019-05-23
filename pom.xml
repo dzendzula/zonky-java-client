@@ -12,14 +12,14 @@
     <groupId>org.zhezhela.zonky</groupId>
     <artifactId>zonky-java-client</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>sniffer</name>
+    <name>Zonky java client</name>
     <description>Test project for Zonky Api</description>
 
     <properties>
         <java.version>1.8</java.version>
         <apache-httpclient.version>4.5.6</apache-httpclient.version>
         <jackson-databind.version>2.9.6</jackson-databind.version>
-        <jackson-datatype-jsr310.version>2.9.8</jackson-datatype-jsr310.version>
+        <jackson-datatype-jsr310.version>2.9.9</jackson-datatype-jsr310.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
     </properties>
 

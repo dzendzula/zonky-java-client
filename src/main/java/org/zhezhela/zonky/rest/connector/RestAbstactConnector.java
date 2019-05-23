@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.zhezhela.zonky.rest.utils.RequestResponseLoggingInterceptor;
 
@@ -42,11 +43,16 @@ public abstract class RestAbstactConnector<T extends Enum> {
 
     public <O, R> R sendGetRequest(T requestType, String[] urlPathParams, O obj, List<NameValuePair> params, Map<String, String> headers, Class<R> claazz) {
         HttpEntity<O> entity = prepareHttpEntity(headers, obj);
-        ResponseEntity<R> responseEntity = getRestTemplate().exchange(prepareRequestUri(requestType, urlPathParams, params), HttpMethod.GET, entity, claazz);
-        //TODO process response codes from responseEntity
-        if (responseEntity != null && responseEntity.getBody() != null) {
-            return responseEntity.getBody();
+        try {
+            ResponseEntity<R> responseEntity = getRestTemplate().exchange(prepareRequestUri(requestType, urlPathParams, params), HttpMethod.GET, entity, claazz);
+            if (responseEntity != null && responseEntity.getBody() != null) {
+                return responseEntity.getBody();
+            }
+        } catch (HttpClientErrorException.BadRequest badRequest) {
+            //TODO parse exception messages
+            log.error("Bad request. Check filter and order properties. Error message: " + badRequest.getMessage());
         }
+        //TODO process all response codes from responseEntity
         return null;
     }
 
