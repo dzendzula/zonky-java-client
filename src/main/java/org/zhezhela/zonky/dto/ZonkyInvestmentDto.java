@@ -1,14 +1,17 @@
 package org.zhezhela.zonky.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public class ZonkyInvestmentDto {
 
     private Long id;
     private BigDecimal firstAmount;
     private BigDecimal amount;
-    private LocalDateTime timeCreated;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+    private ZonedDateTime timeCreated;
     private Long investorId;
     private Long loanId;
     private String investorNickname;
@@ -39,11 +42,11 @@ public class ZonkyInvestmentDto {
         this.amount = amount;
     }
 
-    public LocalDateTime getTimeCreated() {
+    public ZonedDateTime getTimeCreated() {
         return timeCreated;
     }
 
-    public void setTimeCreated(LocalDateTime timeCreated) {
+    public void setTimeCreated(ZonedDateTime timeCreated) {
         this.timeCreated = timeCreated;
     }
 
@@ -85,5 +88,20 @@ public class ZonkyInvestmentDto {
 
     public void setAdditionalAmount(BigDecimal additionalAmount) {
         this.additionalAmount = additionalAmount;
+    }
+
+    @Override
+    public String toString() {
+        return "ZonkyInvestmentDto{" +
+                "id=" + id +
+                ", firstAmount=" + firstAmount +
+                ", amount=" + amount +
+                ", timeCreated=" + timeCreated +
+                ", investorId=" + investorId +
+                ", loanId=" + loanId +
+                ", investorNickname='" + investorNickname + '\'' +
+                ", status='" + status + '\'' +
+                ", additionalAmount=" + additionalAmount +
+                '}';
     }
 }

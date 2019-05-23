@@ -6,7 +6,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import org.zhezhela.zonky.dto.ZonkyInvestmentListDto;
+import org.zhezhela.zonky.dto.ZonkyInvestmentDto;
 import org.zhezhela.zonky.dto.ZonkyLoanDto;
 import org.zhezhela.zonky.dto.filter.ZonkyPagination;
 import org.zhezhela.zonky.dto.filter.ZonkyRequestParams;
@@ -25,7 +25,6 @@ public class ZonkyApiServiceImpl implements ZonkyApiService {
     @Autowired
     private ZonkyConnector zonkyConnector;
 
-
     @Override
     public List<ZonkyLoanDto> getLoans(ZonkyRequestParams params) {
         Map<String, String> headers = prepareHeaders(params);
@@ -37,15 +36,27 @@ public class ZonkyApiServiceImpl implements ZonkyApiService {
     }
 
     @Override
-    public ZonkyLoanDto getLoan(Integer loanId, ZonkyRequestParams params) {
-        Map<String, String> headers = prepareHeaders(params);
-        return zonkyConnector.sendGetRequest(ZonkyRequest.LOANS_MARKETPLACE, new String[0], null, formMessageParamsList(params), headers, ZonkyLoanDto.class);
+    public ZonkyLoanDto getLoan(Long loanId) {
+        if (loanId == null && loanId <= 0) {
+            return null;
+        }
+        return zonkyConnector.sendGetRequest(ZonkyRequest.LOANS_LOAN, new String[]{loanId.toString()}, null, Collections.emptyList(), Collections.emptyMap(), ZonkyLoanDto
+                .class);
+
+
     }
 
     @Override
-    public ZonkyInvestmentListDto getLoanInvestments(Integer loanId, ZonkyRequestParams params) {
+    public List<ZonkyInvestmentDto> getLoanInvestments(Long loanId, ZonkyRequestParams params) {
+        if (loanId == null && loanId <= 0) {
+            return null;
+        }
         Map<String, String> headers = prepareHeaders(params);
-        return zonkyConnector.sendGetRequest(ZonkyRequest.LOANS_MARKETPLACE, new String[0], null, formMessageParamsList(params), headers, ZonkyInvestmentListDto.class);
+        ZonkyInvestmentDto[] investmentDtos = zonkyConnector.sendGetRequest(ZonkyRequest.LOANS_INVESTMENTS, new String[]{loanId.toString()}, null, formMessageParamsList(params), headers, ZonkyInvestmentDto[].class);
+        if (investmentDtos == null) {
+            return Collections.emptyList();
+        }
+        return Arrays.asList(investmentDtos);
     }
 
     private List<NameValuePair> formMessageParamsList(ZonkyRequestParams params) {

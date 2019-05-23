@@ -51,7 +51,7 @@ public class ZonkyApplicationTests {
     }
 
     @Test
-    public void whenCallingGetUserDetails_thenClientMakesCorrectCall()
+    public void whenCallingGetLoans_thenClientMakesCorrectCall()
             throws Exception {
 
         List<ZonkyLoanDto> loanDto = zonkyService.getLoans(null);

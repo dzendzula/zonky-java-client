@@ -1,5 +1,6 @@
 package org.zhezhela.zonky.service;
 
+import org.zhezhela.zonky.dto.ZonkyInvestmentDto;
 import org.zhezhela.zonky.dto.ZonkyInvestmentListDto;
 import org.zhezhela.zonky.dto.ZonkyLoanDto;
 import org.zhezhela.zonky.dto.ZonkyLoanMarketplaceDto;
@@ -22,7 +23,7 @@ public interface ZonkyApiService {
      * @param loanId ID of loan to be viewed
      * @return Detail of @{@link ZonkyLoanDto}
      */
-    ZonkyLoanDto getLoan(Integer loanId, ZonkyRequestParams params);
+    ZonkyLoanDto getLoan(Long loanId);
 
     /**
      * Get investmens for the loan.
@@ -30,7 +31,7 @@ public interface ZonkyApiService {
      * @param loanId ID of loan to be viewed
      * @return @{@link ZonkyInvestmentListDto}
      */
-    ZonkyInvestmentListDto getLoanInvestments(Integer loanId, ZonkyRequestParams params);
+    List<ZonkyInvestmentDto> getLoanInvestments(Long loanId, ZonkyRequestParams params);
 
 
 }

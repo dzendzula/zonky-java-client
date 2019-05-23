@@ -29,6 +29,12 @@ public class ZonkyMarketplaceMonitor {
             log.info("================== Zonky Marketplace ==========================");
             result.forEach(l -> log.info(l.toString()));
             log.info("===============================================================");
+            log.info("################## Zonky Loan Detail ##########################");
+            log.info(zonkyApiService.getLoan(result.get(0).getId()).toString());
+            // Authorized requests are not supported yet
+//            log.info("################## Zonky Loan Investments ######################");
+//            log.info(zonkyApiService.getLoanInvestments(result.get(0).getId(), null).toString());
+            log.info("###############################################################");
         }
     }
 

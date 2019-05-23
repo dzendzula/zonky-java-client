@@ -1,13 +1,13 @@
 package org.zhezhela.zonky.rest.config.mapping;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 public enum ZonkyRequest {
 
     LOANS_MARKETPLACE("loans/marketplace"),
     LOANS_LOAN("loans/%s"),
-    LOANS_INVESTMENT("loans/%s/investment");
+    LOANS_INVESTMENTS("loans/%s/investments");
     //... ;
 
     private String path;
@@ -26,7 +26,7 @@ public enum ZonkyRequest {
         return String.format(path, params);
     }
 
-    private static List<ZonkyRequest> authRequest = Collections.emptyList();
+    private static List<ZonkyRequest> authRequest = Arrays.asList(LOANS_INVESTMENTS);
 
 
     /**
